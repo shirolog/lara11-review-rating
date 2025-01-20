@@ -13,4 +13,20 @@ class Post extends Model
         'title',
         'image',
     ];
+
+    //reviewsとのリレーション関係
+
+    public function reviews(){
+
+        return $this->hasMany(Review::class);
+    }
+
+        // レビュー数をカウントする属性を定義
+        protected $appends = ['reviews_count'];
+
+        public function getReviewsCountAttribute()
+        
+        {
+            return $this->reviews()->count();
+        }
 }

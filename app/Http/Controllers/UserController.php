@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    
 
 //registerページに関する記述
 
@@ -76,6 +77,7 @@ class UserController extends Controller
         $user->save();
 
         session()->flash('success', 'Registered successfully!');
+        
 
         return redirect()->route('user.login');
     }
@@ -230,11 +232,11 @@ class UserController extends Controller
         
         $user = Auth::user();
 
-        $posts = Post::all();
+        $posts = Post::with('reviews')->get();
+        
+        return view('all_posts', compact('posts'));
 
 
-
-        return view('all_posts', compact('posts',));
     }
 
 
