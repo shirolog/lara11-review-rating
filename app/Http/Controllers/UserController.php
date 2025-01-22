@@ -245,9 +245,29 @@ class UserController extends Controller
 
     public function view_post(Post $post){
 
+        //withCount()でreviews_countを取得する
+        $post = Post::withCount('reviews')
+        ->withSum('reviews', 'rating')//withSum()でreviews_sum_ratingを取得できる
+        ->find($post->id);
         
+        if($post){
+            if($post->reviews_count > 0){
+                $average = round(($post->reviews_sum_rating) / $post->reviews_count, 1);
+            }else{
+                $average = 0;
+                
+            }
 
-        return view('view_post', compact('post'));
+   
+
+            $rating_1 = $post->reviews()->where('rating', 1)->count();
+            $rating_2 = $post->reviews()->where('rating', 2)->count();
+            $rating_3 = $post->reviews()->where('rating', 3)->count();
+            $rating_4 = $post->reviews()->where('rating', 4)->count();
+            $rating_5 = $post->reviews()->where('rating', 5)->count();
+        }
+        
+        return view('view_post', compact('post', 'average', 'rating_1', 'rating_2', 'rating_3', 'rating_4', 'rating_5'));
     }
 
 
