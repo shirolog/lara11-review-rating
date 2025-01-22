@@ -13,9 +13,10 @@
             @if($posts->isNotEmpty())
                 @foreach($posts as $post)
                     <div class="box">                        
-                        <img src="{{asset('/uploaded_files/'. $post->image)}}" alt="">
+                        <img src="{{asset('/uploaded_files/'. $post->image)}}" class="image" alt="">
                         <h3 class="title">{{$post->title}}</h3>
-                        <p class="total_reviews">{{$post->reviews_count}}</p>
+
+                        <p class="total_reviews"> <i class="fas fa-star"></i> <span>{{$post->reviews_count}}</span></p>
                         <a href="{{route('user.view_post', $post->id)}}" class="inline-btn">view post</a>
                     </div>
                 @endforeach

@@ -9,24 +9,22 @@ class Post extends Model
     protected $table = 'posts';
 
     protected $fillable = [
-
         'title',
         'image',
     ];
 
-    //reviewsとのリレーション関係
-
-    public function reviews(){
-
+    // reviewsテーブルとのリレーション関係
+    public function reviews()
+    {
         return $this->hasMany(Review::class);
     }
 
-        // レビュー数をカウントする属性を定義
-        protected $appends = ['reviews_count'];
+    // レビュー数をカウントする属性を定義
+    protected $appends = ['reviews_count'];
 
-        public function getReviewsCountAttribute()
-        
-        {
-            return $this->reviews()->count();
-        }
+    // reviews_count属性を取得
+    public function getReviewsCountAttribute()
+    {
+        return $this->reviews()->count();
+    }
 }
