@@ -230,8 +230,7 @@ class UserController extends Controller
         
         $user = Auth::user();
 
-        $posts = Post::all();
-
+        $posts = Post::withCount('reviews')->get();
 
 
         return view('all_posts', compact('posts',));
@@ -241,6 +240,8 @@ class UserController extends Controller
 //view_postページに関する記述
 
     public function view_post(Post $post){
+
+        
 
         return view('view_post', compact('post'));
     }
