@@ -25,7 +25,7 @@
                             $width = ($average*100) / 5
                         @endphp
                         <div class="stars">
-                            <div class="stars-full" style="--width: {{ $width }}%;">★★★★★</div>
+                            <div class="stars-full" style="width: {{ $width }}%;">★★★★★</div>
                             <div class="stars-empty">★★★★★</div>
                         </div>
                         <p>{{$post->reviews_count}} reviews</p>
@@ -74,72 +74,76 @@
         class="inline-btn" style="margin-top: 0;">add review</a></div>
 
         <div class="box-container">
-        @if($reviews->isNotEmpty())
-        @foreach($reviews as $review)
-            <div class="box" @if($review->user_id == Auth::id()) style="order:-1;" @endif>
-                <div class="user">
-                    @if($review->user->image != '')
-                        <img src="{{ asset('uploaded_files/' . $review->user->image) }}" class="image" alt="">
-                    @else
-                        <h3>{{ substr($review->user->name, 0, 1) }}</h3>
-                    @endif
-                    
-                    <div>
-                        <p>{{ $review->user->name }}</p>
-                        <span>{{ $review->updated_at }}</span>
+            @if($reviews->isNotEmpty())
+                @foreach($reviews as $review)
+                    <div class="box" @if($review->user_id == Auth::id()) style="order:-1;" @endif>
+                        <div class="user">
+                            @if($review->user->image != '')
+                                <img src="{{ asset('uploaded_files/' . $review->user->image) }}" class="image" alt="">
+                            @else
+                                <h3>{{ substr($review->user->name, 0, 1) }}</h3>
+                            @endif
+                            
+                            <div>
+                                <p>{{ $review->user->name }}</p>
+                                <span>{{ $review->updated_at }}</span>
+                            </div>
+                        </div>
+                            <div class="ratings">
+                                @if($review->rating == 1)
+                                    <p style="background: var(--red);"><i class="fas fa-star"></i>
+                                    <span>{{$review->rating}}</span></p>
+                                @endif
+
+                                @if($review->rating == 2)
+                                    <p style="background: var(--orange);"><i class="fas fa-star"></i>
+                                    <span>{{$review->rating}}</span></p>
+                                @endif
+
+                                @if($review->rating == 3)
+                                    <p style="background: var(--orange);"><i class="fas fa-star"></i>
+                                    <span>{{$review->rating}}</span></p>
+                                @endif
+
+                                @if($review->rating == 4)
+                                    <p style="background: var(--main-color);"><i class="fas fa-star"></i>
+                                    <span>{{$review->rating}}</span></p>
+                                @endif
+
+                                @if($review->rating == 5)
+                                    <p style="background: var(--main-color);"><i class="fas fa-star"></i>
+                                    <span>{{$review->rating}}</span></p>
+                                @endif
+                            </div>
+
+                            <h3 class="title">{{$review->title}}</h3>
+
+                            @if($review->description != '')
+                                <p class="description">{{$review->description}}</p>
+                            @endif
+
+                            @if($review->user_id == Auth::id())
+                                <form action="{{route('user.view_post_destroy', $review->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <div class="flex-btn">
+                                    <a href="{{route('user.edit_review', $review->id)}}" class="inline-option-btn">edit review</a>
+                                    <input type="submit" class="inline-delete-btn" value="delete review" onclick="return confirm('delete this review?');">
+                                </div>   
+                                </form>
+                            @endif
                     </div>
-                </div>
-                    <div class="ratings">
-                        @if($review->rating == 1)
-                            <p style="background: var(--red);"><i class="fas fa-star"></i>
-                            <span>{{$review->rating}}</span></p>
-                        @endif
-
-                        @if($review->rating == 2)
-                            <p style="background: var(--orange);"><i class="fas fa-star"></i>
-                            <span>{{$review->rating}}</span></p>
-                        @endif
-
-                        @if($review->rating == 3)
-                            <p style="background: var(--orange);"><i class="fas fa-star"></i>
-                            <span>{{$review->rating}}</span></p>
-                        @endif
-
-                        @if($review->rating == 4)
-                            <p style="background: var(--main-color);"><i class="fas fa-star"></i>
-                            <span>{{$review->rating}}</span></p>
-                        @endif
-
-                        @if($review->rating == 5)
-                            <p style="background: var(--main-color);"><i class="fas fa-star"></i>
-                            <span>{{$review->rating}}</span></p>
-                        @endif
-                    </div>
-
-                    <h3 class="title">{{$review->title}}</h3>
-
-                    @if($review->description != '')
-                        <p class="description">{{$review->description}}</p>
-                    @endif
-
-                    @if($review->user_id == Auth::id())
-                        <form action="{{route('user.view_post_destroy', $review->id)}}" method="post">
-                         @csrf
-                         @method('DELETE')
-                         <div class="flex-btn">
-                             <a href="{{route('user.edit_review', $review->id)}}" class="inline-option-btn">edit review</a>
-                             <input type="submit" class="inline-delete-btn" value="delete review" onclick="return confirm('delete this review?');">
-                         </div>   
-                        </form>
-                    @endif
-                
-            </div>
-        @endforeach
-    @else
-        <p class="empty">No reviews added yet!</p>
-    @endif
+                @endforeach
+            @else
+                <p class="empty">No reviews added yet!</p>
+            @endif
 
         </div>
     </section> 
 
+    @if($reviews->isNotEmpty())
+    <div class="page">
+        {!!$reviews->links()!!}
+    </div>
+    @endif
 @endsection

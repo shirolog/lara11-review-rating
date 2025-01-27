@@ -141,6 +141,27 @@ section{
 }
 
 
+.page{
+    font-size: 2rem;
+}
+  
+.page nav{
+    margin: auto;
+
+}
+  
+  .page-item .page-link{
+    padding: .7rem 1.5rem;
+}
+
+  .justify-content-sm-between{
+    justify-content: center !important;
+    gap: 1rem;
+    flex-direction: column-reverse;
+}
+
+
+
 /* header */
 
 .header{
@@ -396,9 +417,7 @@ section{
 .view-post .row .col .flex .total_reviews .stars {
     position: relative;
     display: inline-block;
-    font-size: 3.5rem;
-    color: #ddd; 
-  
+    font-size: 3.5rem;  
 }
 
 .view-post .row .col .flex  .total_reviews .stars-full {
@@ -408,7 +427,6 @@ section{
     white-space: nowrap;
     overflow: hidden;
     color: var(--orange); 
-    clip-path: inset(0 calc(100% - var(--width)) 0 0);
 }
 
 .view-post .row .col .flex .total_reviews .stars-empty {
@@ -543,7 +561,14 @@ section{
 
 @media screen and (max-width: 768px) {
     
-  
+        
+    .page .pagination{
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .4rem;
+        justify-content: center;
+    }
 }
 
 @media screen and (max-width: 450px) {

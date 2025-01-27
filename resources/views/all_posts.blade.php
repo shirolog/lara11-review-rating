@@ -25,5 +25,10 @@
             @endif
         </div>
     </section> 
-
+    
+    @if($posts->isNotEmpty())
+    <div class="page">
+        {!!$posts->links()!!}
+    </div>
+    @endif
 @endsection

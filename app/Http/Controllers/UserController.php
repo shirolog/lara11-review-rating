@@ -234,10 +234,9 @@ class UserController extends Controller
         $user = Auth::user();
 
         
-        $posts = Post::withCount('reviews')->get();
+        $posts = Post::withCount('reviews')->paginate(6);
 
         return view('all_posts', compact('posts'));
-
 
     }
 
@@ -269,7 +268,7 @@ class UserController extends Controller
             $rating_5 = $post->reviews()->where('rating', 5)->count();
         }
 
-        $reviews = $post->reviews;
+        $reviews = $post->reviews()->paginate(10);
 
         
         return view('view_post', compact('post', 'average', 'rating_1', 'rating_2', 'rating_3', 'rating_4', 'rating_5', 'reviews'));
