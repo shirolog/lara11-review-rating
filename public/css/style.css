@@ -137,6 +137,7 @@ section{
     align-items: center;
     gap: 1.5rem;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 
@@ -261,6 +262,12 @@ section{
     border-radius: .5rem;
 }
 
+
+.account-form form textarea{
+    height: 15rem;
+    resize: none;
+}
+
 .account-form form .link{
     font-size: 1.6rem;
     color: var(--light-color);
@@ -332,6 +339,196 @@ section{
 }
 
 
+/* view-post */
+
+.view-post .row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    background: var(--white);
+    box-shadow: var(--box-shadow);
+    border: var(--border);
+    border-radius: .5rem;
+    padding: 2rem;
+}
+
+
+.view-post .row .col{
+    flex: 1 1 40rem;
+}
+
+.view-post .row .col .image{
+    width: 100%;
+    height: 30rem;
+    border-radius: .5rem;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+}
+
+.view-post .row .col .title{
+    font-size: 2rem;
+    color: var(--black);
+}
+
+.view-post .row .col .flex{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.view-post .row .col .flex .total_reviews{
+    text-align: center;
+
+}
+
+.view-post .row .col .flex .total_reviews h3{
+    font-size: 2.5rem;
+    color: var(--black);
+    display: inline-block;
+    padding-right: 1.7rem;
+}
+
+
+.view-post .row .col .flex .total_reviews .stars {
+    position: relative;
+    display: inline-block;
+    font-size: 3.5rem;
+    color: #ddd; 
+  
+}
+
+.view-post .row .col .flex  .total_reviews .stars-full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    color: var(--orange); 
+    clip-path: inset(0 calc(100% - var(--width)) 0 0);
+}
+
+.view-post .row .col .flex .total_reviews .stars-empty {
+    color: #ddd; 
+}
+
+
+.view-post .row .col .flex .total_reviews p{
+    font-size: 1.8rem;
+    color: var(--light-color);
+    padding-top: 1rem;
+}
+
+.view-post .row .col .flex .total-rating{
+    font-size: 2rem;
+}
+
+.view-post .row .col .flex .total-rating p{
+    padding: 0.3rem 0;
+    margin: 0;
+}
+
+.view-post .row .col .flex .total-rating p i{
+    color: var(--orange);
+}
+
+
+/* reviews-container */
+
+.reviews-container .box-container{
+    display: grid;
+    row-gap: 3rem;
+    background: var(--white);
+    box-shadow: var(--box-shadow);
+    border: var(--border);
+    border-radius: .5rem;
+    padding: 2rem;
+}
+
+.reviews-container .box-container .box{
+    border-bottom: var(--border);
+    overflow-x: hidden;
+    padding-bottom: 1.5rem;
+    position: relative;
+}
+
+.reviews-container .box-container .box .user{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.reviews-container .box-container .box .user img{
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.reviews-container .box-container .box .user h3{
+    font-size: 2.5rem;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    background: var(--light-bg);
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 6.5rem;
+}
+
+.reviews-container .box-container .box .user p{
+    font-size: 1.8rem;
+    color: var(--black);
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    padding-bottom: 0.3rem;
+}
+
+.reviews-container .box-container .box .user span{
+    color: var(--light-color);
+    font-size: 1.5rem;
+}
+
+.reviews-container .box-container .box .ratings{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: .5rem;
+    color: var(--white);
+    z-index: 10;
+}
+
+
+.reviews-container .box-container .box .ratings p{
+    color: var(--white);
+    border-radius: .5rem;
+    padding: 0.5rem 1rem;
+}
+
+.reviews-container .box-container .box .ratings p i{
+    font-size: 1.5rem;
+}
+
+.reviews-container .box-container .box .ratings p span{
+    font-size: 2rem;
+}
+
+.reviews-container .box-container .box .title{
+    font-size: 2rem;
+    color: var(--black);
+    padding: 0.5rem 0;
+}
+
+.reviews-container .box-container .box .description{
+    font-size: 1.6rem;
+    color: var(--light-color);
+    white-space: pre-line;
+    line-height: 1.5;
+}
 
 
 
@@ -360,5 +557,10 @@ section{
 
     .all-posts .box-container{
         grid-template-columns: 1fr;       
+    }
+
+    /* view-post */
+    .view-post .row .col .image{
+        height: 20rem;
     }
 }

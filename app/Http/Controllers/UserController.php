@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Expr\New_;
 
 class UserController extends Controller
 {
@@ -245,17 +246,18 @@ class UserController extends Controller
 
     public function view_post(Post $post){
 
-        //withCount()でreviews_countを取得する
+        //withCount()でreviews_countを取得できる
         $post = Post::withCount('reviews')
         ->withSum('reviews', 'rating')//withSum()でreviews_sum_ratingを取得できる
         ->find($post->id);
         
         if($post){
             if($post->reviews_count > 0){
-                $average = round(($post->reviews_sum_rating) / $post->reviews_count, 1);
+
+                $average = round(($post->reviews_sum_rating / $post->reviews_count), 1);
+
             }else{
                 $average = 0;
-                
             }
 
    
@@ -266,23 +268,78 @@ class UserController extends Controller
             $rating_4 = $post->reviews()->where('rating', 4)->count();
             $rating_5 = $post->reviews()->where('rating', 5)->count();
         }
+
+        $reviews = $post->reviews;
+
         
-        return view('view_post', compact('post', 'average', 'rating_1', 'rating_2', 'rating_3', 'rating_4', 'rating_5'));
+        return view('view_post', compact('post', 'average', 'rating_1', 'rating_2', 'rating_3', 'rating_4', 'rating_5', 'reviews'));
     }
+
+    public function view_post_destroy(Review $review){
+        
+        $review->delete();
+
+        session()->flash('success', 'Review deleted successfully!');
+
+        return redirect()->back();
+    }
+
+
 
 
 //add_viewページに関する記述
 
-    public function add_view(){
+    public function add_view(Post $post){
 
-        return view('add_view');
+        return view('add_view', compact('post'));
     }
+    
+
+    public function add_view_store(Request $request){
+
+        $validator = Validator::make($request->all(), [
+
+            'title' => 'required|string|max:50',
+            'description' => 'required|string|max:1000',
+            'rating' => 'required|numeric|between:1, 5',
+        ]);
+
+        if($validator->fails()){
+
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+
+        $existReview = Review::where('user_id', Auth::user()->id)
+        ->where('post_id', $request->input('post_id'))
+        ->exists();
+
+        if ($existReview) {
+            session()->flash('error', 'Your review has already been added!');
+            return redirect()->back()->withInput();
+        }
+
+        $review = new Review;
+
+        $review->post_id = $request->input('post_id');
+        $review->user_id = Auth::user()->id;
+        $review->rating = $request->input('rating');
+        $review->title = $request->input('title');
+        $review->description = $request->input('description');
+        $review->save();
+
+
+        return redirect()->back()->with('success', 'Review added');
+    }
+
+
+
 
 //edit_reviewページに関する記述
 
-    public function edit_review(){
+    public function edit_review(Review $review){
 
-        return view('edit_review');
+        return view('edit_review', compact('review'));
     }
 
 

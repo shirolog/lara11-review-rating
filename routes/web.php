@@ -37,14 +37,22 @@ Route::group(['middleware' => 'auth'], function(){
     
     //view_postページに関する記述
     Route::get('/view_post/{post}', [UserController::class, 'view_post'])
-    ->name('user.view_post');
+    ->name('user.view_post');    
+    Route::delete('/view_post/{review}', [UserController::class, 'view_post_destroy'])
+    ->name('user.view_post_destroy');
+
+
     
     //add_viewページに関する記述
-    Route::get('/add_view', [UserController::class, 'add_view'])
+    Route::get('/add_view/{post}', [UserController::class, 'add_view'])
     ->name('user.add_view');
+    Route::post('/add_view/{post}', [UserController::class, 'add_view_store'])
+    ->name('user.add_view_store');
+
+
     
     //edit_reviewページに関する記述
-    Route::get('/edit_review', [UserController::class, 'edit_review'])
+    Route::get('/edit_review/{review}', [UserController::class, 'edit_review'])
     ->name('user.edit_review');
     
     

@@ -16,4 +16,22 @@ class Review extends Model
         'title',
         'description',
     ];
+
+    // postテーブルとのリレーション関係
+
+    public function post(){
+
+        return $this->belongsTo(Post::class);
+    }
+
+    // userテーブルとのリレーション関係
+
+    public function user(){
+
+        return $this->belongsTo(User::class);
+    }
+
+
+
+
 }
