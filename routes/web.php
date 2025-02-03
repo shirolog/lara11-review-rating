@@ -54,6 +54,8 @@ Route::group(['middleware' => 'auth'], function(){
     //edit_reviewページに関する記述
     Route::get('/edit_review/{review}', [UserController::class, 'edit_review'])
     ->name('user.edit_review');
+    Route::put('/edit_review/{review}', [UserController::class, 'edit_review_update'])
+    ->name('user.edit_review_update');
     
     
     //logout処理に関する記述

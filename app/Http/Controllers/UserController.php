@@ -341,6 +341,29 @@ class UserController extends Controller
         return view('edit_review', compact('review'));
     }
 
+    public function edit_review_update(Request $request, Review $review){
+
+        $validator = Validator::make($request->all(), [
+
+            'title' => 'nullable|string|max:50',
+            'description' => 'nullable|string|max:1000',
+            'rating' => 'nullable|numeric|between:1, 5',
+        ]);
+
+        if($validator->fails()){
+
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
+
+        $review->title = $request->input('title');
+        $review->description = $request->input('description');
+        $review->rating = $request->input('rating');
+        $review->save();
+
+        return redirect()->back()->with('success', 'Review updated!');
+
+    }
+
 
 
 
