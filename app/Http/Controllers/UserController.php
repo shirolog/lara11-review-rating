@@ -83,6 +83,8 @@ class UserController extends Controller
         return redirect()->route('user.login');
     }
 
+
+
 //loginページに関する記述
 
     public function login(){
@@ -116,6 +118,8 @@ class UserController extends Controller
 
         }
     }
+
+
 
 
 //edit_profileページに関する記述
@@ -227,6 +231,7 @@ class UserController extends Controller
     }
 
 
+
 //all_postsページに関する記述
 
     public function all_posts(){
@@ -240,6 +245,7 @@ class UserController extends Controller
 
     }
 
+        
 
 //view_postページに関する記述
 
