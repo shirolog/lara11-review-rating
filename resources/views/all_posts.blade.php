@@ -28,7 +28,7 @@
     
     @if($posts->isNotEmpty())
     <div class="page">
-        {!!$posts->links()!!}
+        {{$posts->onEachSide(1)->links()}}
     </div>
     @endif
 @endsection

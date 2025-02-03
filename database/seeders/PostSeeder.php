@@ -44,6 +44,7 @@ class PostSeeder extends Seeder
                 'title' => '06 example post title',
                 'image' => 'post_6.webp',
             ],
+
         ]);
     }
 }
