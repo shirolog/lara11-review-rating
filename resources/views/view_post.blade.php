@@ -124,12 +124,12 @@
 
                             @if($review->user_id == Auth::id())
                                 <form action="{{route('user.view_post_destroy', $review->id)}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <div class="flex-btn">
-                                    <a href="{{route('user.edit_review', $review->id)}}" class="inline-option-btn">edit review</a>
-                                    <input type="submit" class="inline-delete-btn" value="delete review" onclick="return confirm('delete this review?');">
-                                </div>   
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="flex-btn">
+                                        <a href="{{route('user.edit_review', $review->id)}}" class="inline-option-btn">edit review</a>
+                                        <input type="submit" class="inline-delete-btn" value="delete review" onclick="return confirm('delete this review?');">
+                                    </div>   
                                 </form>
                             @endif
                     </div>
