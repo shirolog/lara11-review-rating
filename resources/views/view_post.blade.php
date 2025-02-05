@@ -143,7 +143,7 @@
 
     @if($reviews->isNotEmpty())
     <div class="page">
-        {!!$reviews->links()!!}
+        {!!$reviews->onEachSide(1)->links()!!}
     </div>
     @endif
 @endsection
